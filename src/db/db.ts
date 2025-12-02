@@ -14,7 +14,9 @@ export const getPool = ()=>{
           max: 20,                   // Recommended for AWS Lambda
           idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
-           ssl: true 
+     ssl: {
+  rejectUnauthorized: false
+}
         })
         console.log("Postgres Pool Created")
         console.log("DB_HOST:", process.env.DB_HOST);
