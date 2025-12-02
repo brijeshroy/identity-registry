@@ -11,6 +11,10 @@ export class RouteHandler {
     userCreate = async (event: APIGatewayProxyEvent) : Promise<any>=> {
         let dbRes;
         try {
+            console.log("Before parsing");
+            console.log(JSON.stringify(event))
+             console.log("Before parsing 1");
+             console.log(JSON.stringify(event.body))
             const userPayload: userInfo = JSON.parse(event?.body || '');
             userPayload.category = userPayload.category.toUpperCase()
 
