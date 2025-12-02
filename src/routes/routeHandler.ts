@@ -26,7 +26,7 @@ export class RouteHandler {
             console.log(`Data inserted response is ${JSON.stringify(dbRes)}`)
        
         } catch (error) {
-            console.log("Error encountered is :-", JSON.stringify(error));
+            console.log("Error encountered is :-", error);
             throw error
         }
           return dbRes;

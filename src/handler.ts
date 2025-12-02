@@ -18,6 +18,7 @@ export const handler = async (
 
   
   } catch (error: unknown) {
+    console.log(`Error is ${error}`)
     statusCode = 400
     Res = error
  
