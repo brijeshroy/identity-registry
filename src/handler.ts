@@ -8,7 +8,7 @@ export const handler = async (
   let Res : any= { message: "Route not found Here" }
   try {
    const routehandler = new RouteHandler();
-    console.log("Headers:", JSON.stringify(event.headers, null, 2));
+    console.log("Entered in lambda");
     if(event.path.includes("createUser") && event.httpMethod === "POST")
       Res =await  routehandler.userCreate(event)
 
