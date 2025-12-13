@@ -5,7 +5,7 @@ export const handler = async (
   event: APIGatewayProxyEvent
 ): Promise<APIGatewayProxyResult> => {
   let statusCode = 404;
-  let Res : any= { message: "Route not found Here" }
+  let Res : any= { message: "Route not found Here,Please retry" }
   try {
    const routehandler = new RouteHandler();
     console.log("Entered in lambda");
