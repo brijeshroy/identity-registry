@@ -49,5 +49,5 @@ jobs:
       - name: Deploy Lambda
         run: |
           aws lambda update-function-code \
-            --function-name user-generate \
+            --function-name identity-registry \
             --zip-file fileb://function.zip
