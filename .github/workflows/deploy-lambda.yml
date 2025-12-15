@@ -1,4 +1,4 @@
-name: Deploy Lambda Manually by Brijesh Roy
+name: Deploy Lambda (Bundled) by Brijesh Roy
 
 on:
   workflow_dispatch:
@@ -29,13 +29,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      # 4️⃣ Compile TypeScript
-      - name: Compile TypeScript
-        run: npx tsc
+      - name: Build (bundle)
+        run: |
+          npx esbuild src/index.ts \
+            --bundle \
+            --platform=node \
+            --target=node24 \
+            --outfile=dist/index.js
 
-      # 5️⃣ Zip the code
       - name: Zip code
-        run: zip -r function.zip dist/ node_modules/ package.json
+        run: |
+          cd dist
+          zip -r ../function.zip index.js
 
       # 6️⃣ Configure AWS credentials
       - name: Configure AWS credentials
