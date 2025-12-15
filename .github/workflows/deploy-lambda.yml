@@ -29,6 +29,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # 4️⃣ Bundle TypeScript into dist/index.js  
       - name: Build (bundle)
         run: |
           npx esbuild src/handler.ts \
@@ -36,11 +37,11 @@ jobs:
             --platform=node \
             --target=node24 \
             --outfile=dist/handler.js
-
+      
+      # 5️⃣ Zip only the dist folder     
       - name: Zip code
         run: |
-          cd dist
-          zip -r ../function.zip handler.js
+          zip -r function.zip dist
 
       # 6️⃣ Configure AWS credentials
       - name: Configure AWS credentials
