@@ -31,16 +31,16 @@ jobs:
 
       - name: Build (bundle)
         run: |
-          npx esbuild src/index.ts \
+          npx esbuild src/handler.ts \
             --bundle \
             --platform=node \
             --target=node24 \
-            --outfile=dist/index.js
+            --outfile=dist/handler.js
 
       - name: Zip code
         run: |
           cd dist
-          zip -r ../function.zip index.js
+          zip -r ../function.zip handler.js
 
       # 6️⃣ Configure AWS credentials
       - name: Configure AWS credentials
