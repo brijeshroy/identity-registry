@@ -9,7 +9,7 @@ export const idCreator = (userCategory:UserCategoryKey) : string =>{
    
     console.log("The Current Data is ",currentDate)
     console.log("the current time is",currentTime)
-    const userId : string = userCategory.concat(`_${currentDate}_${currentTime}`);
+    const userId : string = userCategory.toLowerCase().concat(`_${currentDate}_${currentTime}`);
 
     console.log(`The user id is ${userId}`);
 

@@ -32,11 +32,11 @@ jobs:
       # 4️⃣ Bundle TypeScript into dist/index.js  
       - name: Build (bundle)
         run: |
-          npx esbuild src/handler.ts \
+          npx esbuild src/index.ts \
             --bundle \
             --platform=node \
             --target=node24 \
-            --outfile=dist/handler.js
+            --outfile=dist/index.js
       
       # 5️⃣ Zip only the dist folder     
       - name: Zip code

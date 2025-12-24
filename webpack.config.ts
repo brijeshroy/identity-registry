@@ -3,7 +3,7 @@ import nodeExternals from "webpack-node-externals";
 import { Configuration } from "webpack";
 
 const config: Configuration = {
-  entry: "./src/handler.ts",   // starting point of your Lambda
+  entry: "./src/index.ts",   // starting point of your Lambda
   target: "node",              // bundle for Node.js environment
   mode: "production",          // optimized build
   externals:  {
