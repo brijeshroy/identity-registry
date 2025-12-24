@@ -23,8 +23,5 @@ export const handler = async (
     Res = error
  
   }
-     return {
-      statusCode,
-      body: JSON.stringify(Res),
-    };
+     return Res;
 };
