@@ -13,7 +13,7 @@ export const handler = async (
       Res =await  routehandler.userCreate(event)
 
 
-       statusCode =200
+       
      
 
   

@@ -33,7 +33,10 @@ export class RouteHandler {
             console.log("Error encountered is :-", error);
             throw error
         }
-          return dbRes;
+           return  {
+            statusCode : 201,
+            id : dbRes
+          } 
         
 
     }
