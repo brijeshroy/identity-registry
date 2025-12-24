@@ -8,13 +8,13 @@ import { insertUser } from "../services/db-service";
 
 export class RouteHandler {
 
-    userCreate = async (event: APIGatewayProxyEvent) : Promise<any>=> {
+    userCreate = async (event: APIGatewayProxyEvent): Promise<any> => {
         let dbRes;
         try {
             console.log("Before parsing");
             console.log(JSON.stringify(event))
-             console.log("Before parsing 1");
-             console.log(JSON.stringify(event.body))
+            console.log("Before parsing 1");
+            console.log(JSON.stringify(event.body))
             const userPayload: userInfo = JSON.parse(event?.body || '');
             userPayload.category = userPayload.category.toUpperCase()
 
@@ -26,18 +26,21 @@ export class RouteHandler {
             const { dbQuery, dbParams } = createDbPayload(userPayload)
 
 
-             dbRes = await insertUser(dbQuery, dbParams)
+            dbRes = await insertUser(dbQuery, dbParams)
             console.log(`Data inserted response is ${JSON.stringify(dbRes)}`)
-       
+
         } catch (error) {
             console.log("Error encountered is :-", error);
             throw error
         }
-           return  {
-            statusCode : 201,
-            id : dbRes
-          } 
-        
+        return {
+            statusCode: 201,
+            body: JSON.stringify({
+                message: "User created successfully",
+                userId: dbRes
+            })
+        }
+
 
     }
 }
