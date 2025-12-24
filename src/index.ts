@@ -20,7 +20,10 @@ export const handler = async (
   } catch (error: unknown) {
     console.log(`Error is ${error}`)
     statusCode = 400
-    Res = error
+    Res = {
+    statusCode : 400,
+    body : JSON.stringify(error)
+    }
  
   }
      return Res;
