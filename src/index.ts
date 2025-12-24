@@ -21,8 +21,11 @@ export const handler = async (
     console.log(`Error is ${error}`)
     statusCode = 400
     Res = {
-  //  statusCode : 400,
-    body : JSON.stringify(error)
+    statusCode : 400,
+    body : JSON.stringify({
+      message:"Process failed",
+      error
+    })
     }
  
   }
