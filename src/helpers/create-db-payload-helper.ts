@@ -8,7 +8,7 @@ export const createDbPayload = (userPayload:userInfo)=>{
     const id = idCreator(category as UserCategoryKey)
 
     const dbQuery = `INSERT into user_registry (id,name,email,password,category) 
-                     values ($1,$2,$3,$4,$5)`
+                     values ($1,$2,$3,$4,$5) RETURNING id;`
     const dbParams = [id,name,email,password,category]
 
     console.log('The query is :- ',dbQuery);
