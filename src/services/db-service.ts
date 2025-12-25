@@ -2,7 +2,7 @@ import { getPool } from "../db/db";
 
 export const insertUser = async (dbQuery:string,dbParams:any[])=>{
     console.log("Inserting data into Postgres");
-    const pool = getPool();
+    const pool = await getPool();
     let id:string;
     try {
          const result = await pool.query(dbQuery, dbParams);

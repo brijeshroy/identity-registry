@@ -1,16 +1,56 @@
 import {Pool} from "pg";
+import { SSMClient, GetParametersCommand } from "@aws-sdk/client-ssm";
 
-let pool : Pool | null = null
+let pool : Pool | null = null;
+let cachedSSMConfig: Record<string, string> | null = null;
+
+const ssmClient = new SSMClient({ region: process.env.AWS_REGION! });
+
+const getSSMParam = async () =>{
+if(cachedSSMConfig)
+    return cachedSSMConfig
+
+const paramArray = [
+        "/user-generate/db/dbname",
+        "/user-generate/db/host",
+        "/user-generate/db/password",
+        "/user-generate/db/port",
+        "/user-generate/db/username"
+    ]
+const ssmParamSet = new GetParametersCommand({
+    Names:paramArray,
+    WithDecryption:true
+})
+
+const ssmParamRes = await ssmClient.send(ssmParamSet)
+console.log(`The Recevied SSMParam is ${JSON.stringify(ssmParamRes)}`)
 
 
-export const getPool = ()=>{
+
+const params : Record<string,string> = {}
+ssmParamRes.Parameters?.forEach(ele=> {
+    if (ele.Name && ele.Value)
+    params[ele.Name] = ele.Value
+})
+console.log("The SSM Param object is",JSON.stringify(params))
+cachedSSMConfig = params
+
+return cachedSSMConfig;
+
+}
+
+
+
+
+export const getPool = async ()=>{
     if (!pool){
+        const ssmParamObj = await getSSMParam()
         pool = new Pool({
-          host: process.env.DB_HOST,
-          user: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.DB_NAME,
-          port: Number(process.env.DB_PORT),
+          host: ssmParamObj["/user-generate/db/host"],
+          user: ssmParamObj["/user-generate/db/username"],
+          password: ssmParamObj["/user-generate/db/password"],
+          database: ssmParamObj["/user-generate/db/dbname"],
+          port: Number(ssmParamObj["/user-generate/db/port"]),
           max: 20,                   // Recommended for AWS Lambda
           idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
@@ -18,12 +58,7 @@ export const getPool = ()=>{
   rejectUnauthorized: false
 }
         })
-        console.log("Postgres Pool Created")
-        console.log("DB_HOST:", process.env.DB_HOST);
-console.log("DB_USER:", process.env.DB_USER);
-console.log("DB_PASSWORD:", process.env.DB_PASSWORD); // TEMPORARY
-console.log("DB_NAME:", process.env.DB_NAME);
-console.log("DB_PORT:", process.env.DB_PORT);
+       
     }
     else
         console.log("Postgres Pool Exists")
