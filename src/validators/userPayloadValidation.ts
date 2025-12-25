@@ -9,7 +9,7 @@ export const validateReqPayload=(userPayload:userInfo)=>{
 
     if(error)
     {
-        throw new Error(JSON.stringify(error))
+        throw new Error(JSON.stringify(error.details))
     }
 
       console.log(value)

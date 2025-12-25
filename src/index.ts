@@ -20,11 +20,14 @@ export const handler = async (
   } catch (error: unknown) {
     console.log(`Error is ${error}`)
     statusCode = 400
+      let errMsg = "Unknown"
+    if (error instanceof Error)
+      errMsg = error.message
     Res = {
     statusCode : 400,
     body : JSON.stringify({
       message:"Process failed",
-      error
+      error : errMsg
     })
     }
  
