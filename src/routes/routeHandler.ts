@@ -3,7 +3,8 @@ import { userInfo } from "../interfaces/userInfo-Interface";
 import { validateReqPayload } from "../validators/userPayloadValidation";
 import { createDbPayload } from "../helpers/create-db-payload-helper";
 import { passwordHasher } from "../helpers/password-hasher-helper";
-import { insertUser } from "../services/db-service";
+import { insertUser } from "../services/create-user-service";
+import { emailQInsert } from "../services/queue-email-service";
 
 
 export class RouteHandler {
@@ -28,6 +29,8 @@ export class RouteHandler {
 
             dbRes = await insertUser(dbQuery, dbParams)
             console.log(`Data inserted response is ${JSON.stringify(dbRes)}`)
+            const {password , ...userDetails } = userPayload
+           await emailQInsert(userDetails,dbRes)
 
         } catch (error) {
             console.log("Error encountered is :-", error);

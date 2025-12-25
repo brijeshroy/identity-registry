@@ -1,4 +1,4 @@
-import { getPool } from "../db/db";
+import { getPool } from "../db/dbConnect";
 
 export const insertUser = async (dbQuery:string,dbParams:any[])=>{
     console.log("Inserting data into Postgres");
