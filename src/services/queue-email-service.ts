@@ -18,7 +18,8 @@ export const emailQInsert = async (userDetails : any , userId :  string) =>{
   console.log("The message being send to SQS is",JSON.stringify(msgBody))
   const ssmParam = ["/user/email-SQS-url"]
   const sqsEmailUrl = await getSSMParam("Email",ssmParam) 
-  console.log(`The Url is ${sqsEmailUrl}`);
+  console.log(`The Url is ${JSON.stringify(sqsEmailUrl)}`);
+  console.log("FINAL SQS MESSAGE BODY:", msgBody);
   try{
   await sqsClient.send( 
     new SendMessageCommand({
