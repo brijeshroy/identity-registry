@@ -13,7 +13,7 @@ export const getSSMParam = async (cacheKey: string, ssmParamArr: string[]) => {
   }
 
   console.log("Creating New CachedSSMConfig");
-  console.log("SSM Parameter keys are");
+  console.log("SSM Parameter keys are \n",ssmParamArr);
   const paramArray = ssmParamArr;
   const ssmParamSet = new GetParametersCommand({
     Names: paramArray,
