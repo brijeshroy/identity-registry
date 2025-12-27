@@ -10,10 +10,9 @@ export const emailQInsert = async (userDetails : any , userId :  string) =>{
     eventType: "USER_CREATED",
     userId: userId,              
     email: userDetails.email,      // from request
-    data: {
-      name: userDetails.name,
-      category: userDetails.category,
-    },
+    name: userDetails.name,
+    category: userDetails.category,
+   
   };
 
   console.log("The message being send to SQS is",JSON.stringify(msgBody))
